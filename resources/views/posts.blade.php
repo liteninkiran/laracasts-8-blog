@@ -1,26 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
 
-    <head>
-        <link rel="stylesheet" href="/app.css">
-        <title>Kiran's Blog</title>
-    </head>
+@extends('layout')
 
-    <body>
+@section('content')
 
-        @foreach($posts as $post)
-            <article>
-                <h1>
-                    <a href="/posts/{{ $post->slug }}">
-                        {{ $post->title }}
-                    </a>
-                </h1>
-                <div>
-                    {{ $post->excerpt }}
-                </div>
-            </article>
-        @endforeach
+    @foreach($posts as $post)
 
-    </body>
+        {{-- @dd($loop) --}}
 
-</html>
+        <article>
+
+            {{-- Title --}}
+            <h1>
+                <a href="/posts/{{ $post->slug }}">
+                    {{ $post->title }}
+                </a>
+            </h1>
+
+            {{-- Excerpt --}}
+            <div>
+                {{ $post->excerpt }}
+            </div>
+
+        </article>
+
+    @endforeach
+
+@endsection

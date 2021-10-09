@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout')
 
-    <head>
-        <link rel="stylesheet" href="/app.css">
-        <title>Kiran's Blog</title>
-    </head>
+@section('content')
 
-    <body>
+    <article>
+        <h1>{{ $post->title }}</h1>
+        <div>
+            {!! $post->body !!}
+        </div>
+    </article>
 
-        <article>
-            <h1>{{ $post->title }}</h1>
-            <div>
-                {!! $post->body !!}
-            </div>
-        </article>
+    <a href="/">Back</a>
 
-        <a href="/">Back</a>
-
-    </body>
-
-</html>
+@endsection
