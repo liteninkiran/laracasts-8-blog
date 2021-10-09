@@ -13,7 +13,6 @@ class UserSeeder extends Seeder
      * @return void
      */
     public function run() {
-        User::factory(10)->createAdmin();
         User::factory(10)->create();
     }
 }
