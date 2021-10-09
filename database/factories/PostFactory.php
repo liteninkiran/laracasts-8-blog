@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Post;
+use App\Models\User;
 
 class PostFactory extends Factory
 {
@@ -21,8 +22,13 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $user = User::inRandomOrder()->first();
         return [
-            //
-        ];
+            'title' => $this->faker->word(),
+            'excerpt' => '<p>' . $this->faker->realText($maxNbChars = 200, $indexSize = 3) . '</p>',
+            'body' => '<p>' . $this->faker->realText($maxNbChars = 1000, $indexSize = 5) . '</p>',
+            'published_at' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
+            'user_id' => $user->id,
+            ];
     }
 }
