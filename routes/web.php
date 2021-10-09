@@ -15,16 +15,10 @@ use App\Models\Post;
 */
 
 Route::get('/', function () {
-
     $posts = Post::all();
-
-    return view('posts', [
-        'posts' => $posts,
-    ]);
+    return view('posts', compact('posts'));
 });
 
-Route::get('posts/{post}', function ($id) {
-    return view('post', [
-        'post' => Post::findOrFail($id),
-    ]);
+Route::get('posts/{post}', function (Post $post) {
+    return view('post',  compact('post'));
 });
