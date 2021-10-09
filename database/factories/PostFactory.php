@@ -24,6 +24,7 @@ class PostFactory extends Factory
     {
         $user = User::inRandomOrder()->first();
         return [
+            'slug' => $this->faker->safeColorName() . '-' . $this->faker->randomNumber($nbDigits = 3, $strict = true),
             'title' => $this->faker->word(),
             'excerpt' => '<p>' . $this->faker->realText($maxNbChars = 200, $indexSize = 3) . '</p>',
             'body' => '<p>' . $this->faker->realText($maxNbChars = 1000, $indexSize = 5) . '</p>',
