@@ -1,8 +1,5 @@
-
-@extends('layout')
-
-@section('content')
-
+<x-layout>
+    
     @foreach($posts as $post)
 
         {{-- @dd($loop) --}}
@@ -25,4 +22,4 @@
 
     @endforeach
 
-@endsection
+</x-layout>
