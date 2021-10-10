@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Category;
 
 class PostFactory extends Factory
 {
@@ -23,6 +24,8 @@ class PostFactory extends Factory
     public function definition()
     {
         $user = User::inRandomOrder()->first();
+        $category = Category::inRandomOrder()->first();
+
         return [
             'slug' => $this->faker->safeColorName() . '-' . $this->faker->randomNumber($nbDigits = 3, $strict = true),
             'title' => $this->faker->word(),
@@ -30,6 +33,7 @@ class PostFactory extends Factory
             'body' => '<p>' . $this->faker->realText($maxNbChars = 1000, $indexSize = 5) . '</p>',
             'published_at' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'user_id' => $user->id,
+            'category_id' => $category->id,
             ];
     }
 }
