@@ -15,7 +15,7 @@ use App\Models\Post;
 */
 
 Route::get('/', function () {
-    $posts = Post::all();
+    $posts = Post::with('category')->get();
     return view('posts', compact('posts'));
 });
 

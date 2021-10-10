@@ -13,6 +13,11 @@
                 </a>
             </h1>
 
+            {{-- Category --}}
+            <p>
+                {{ $post->category->name }}
+            </p>
+
             {{-- Excerpt --}}
             <div>
                 {!! $post->excerpt !!}
