@@ -26,11 +26,18 @@ class PostFactory extends Factory
         $user = User::inRandomOrder()->first();
         $category = Category::inRandomOrder()->first();
 
+        $title = $this->faker->realText(50);
+        $paragraphs = $this->faker->paragraphs(rand(2, 6));
+        $body = "<i>{$title}</i>";
+        foreach ($paragraphs as $para) {
+            $body .= "<p>{$para}</p>";
+        }
+
         return [
             'slug' => $this->faker->slug,
             'title' => $this->faker->sentence,
             'excerpt' => '<p>' . $this->faker->sentence . '</p>',
-            'body' => '<p>' . $this->faker->paragraph . '</p>',
+            'body' => $body,
             'published_at' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'user_id' => $user->id,
             'category_id' => $category->id,
