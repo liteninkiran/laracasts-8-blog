@@ -18,7 +18,8 @@ use App\Models\Category;
 
 Route::get('/', function () {
     $posts = Post::latest('published_at')->with('category', 'author')->get();
-    return view('posts', compact('posts'));
+    $categories = Category::orderBy('name')->get();
+    return view('posts', compact('posts', 'categories'));
 });
 
 Route::get('posts/{post:slug}', function (Post $post) {
@@ -32,7 +33,8 @@ Route::get('categories/{category:slug}', function (Category $category) {
         ->with('category', 'author')
         ->where('category_id', '=', $category->id)
         ->get();
-    return view('posts',  ['posts' => $posts]);
+    $categories = Category::orderBy('name')->get();
+    return view('posts',  compact('posts', 'categories'));
 });
 
 Route::get('authors/{author:username}', function (User $author) {
@@ -41,5 +43,6 @@ Route::get('authors/{author:username}', function (User $author) {
         ->with('category', 'author')
         ->where('user_id', '=', $author->id)
         ->get();
-    return view('posts',  ['posts' => $posts]);
+    $categories = Category::orderBy('name')->get();
+    return view('posts',  compact('posts', 'categories'));
 });
