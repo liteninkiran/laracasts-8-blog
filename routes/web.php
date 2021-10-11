@@ -26,6 +26,7 @@ Route::get('posts/{post:slug}', function (Post $post) {
 });
 
 Route::get('categories/{category:slug}', function (Category $category) {
+    // $posts = $category->posts->load(['category', 'author']);
     $posts = Post::query()
         ->latest('published_at')
         ->with('category', 'author')

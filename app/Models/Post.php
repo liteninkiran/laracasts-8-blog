@@ -24,6 +24,9 @@ class Post extends Model
         'category_id',
     ];
 
+    // Eager load relations
+    // protected $with = ['category', 'author'];
+
     public function author() {
         return $this->belongsTo(User::class, 'user_id');
     }
