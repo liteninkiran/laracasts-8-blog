@@ -28,7 +28,7 @@ class PostFactory extends Factory
 
         return [
             'slug' => $this->faker->safeColorName() . '-' . $this->faker->randomNumber($nbDigits = 3, $strict = true),
-            'title' => $this->faker->word(),
+            'title' => $this->faker->realText($maxNbChars = 15, $indexSize = 5),
             'excerpt' => '<p>' . $this->faker->realText($maxNbChars = 200, $indexSize = 3) . '</p>',
             'body' => '<p>' . $this->faker->realText($maxNbChars = 1000, $indexSize = 5) . '</p>',
             'published_at' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
