@@ -5,11 +5,8 @@
         {{-- Title --}}
         <h1>{{ $post->title }}</h1>
 
-        {{-- Category --}}
-        <p>{{ $post->category->name }}</p>
-
-        {{-- User Name --}}
-        <h3><a href="#">By {{ $post->user->name }}</a></h3>
+        {{-- Author / Category --}}
+        <p>By <a href="/authors/{{ $post->author->username }}">{{ $post->author->name }}</a> in <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a></p>
 
         {{-- Published Date --}}
         <p>{{ date('jS F Y', strtotime($post->published_at)) }}</p>
