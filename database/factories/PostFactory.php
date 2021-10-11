@@ -27,10 +27,10 @@ class PostFactory extends Factory
         $category = Category::inRandomOrder()->first();
 
         return [
-            'slug' => $this->faker->safeColorName() . '-' . $this->faker->randomNumber($nbDigits = 3, $strict = true),
-            'title' => $this->faker->realText($maxNbChars = 15, $indexSize = 5),
-            'excerpt' => '<p>' . $this->faker->realText($maxNbChars = 200, $indexSize = 3) . '</p>',
-            'body' => '<p>' . $this->faker->realText($maxNbChars = 1000, $indexSize = 5) . '</p>',
+            'slug' => $this->faker->slug,
+            'title' => $this->faker->sentence,
+            'excerpt' => '<p>' . $this->faker->sentence . '</p>',
+            'body' => '<p>' . $this->faker->paragraph . '</p>',
             'published_at' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'user_id' => $user->id,
             'category_id' => $category->id,
