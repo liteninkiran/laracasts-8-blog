@@ -24,6 +24,12 @@ class Post extends Model
         'category_id',
     ];
 
+    protected $dates = [
+        'published_at',
+        'created_at',
+        'updated_at',
+    ];
+
     // Eager load relations
     // protected $with = ['category', 'author'];
 

@@ -1,33 +1,21 @@
 <x-layout>
-    
-    @foreach($posts as $post)
 
-        {{-- @dd($loop) --}}
+    {{-- Header --}}
+    @include('partials\_posts-header')
 
-        <article>
+    {{-- Blog Posts --}}
+    <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
 
-            {{-- Title --}}
-            <h1>
-                <a href="/posts/{{ $post->slug }}">
-                    {{ $post->title }}
-                </a>
-            </h1>
+        @if ($posts->count())
 
-            {{-- Author / Category --}}
-            <p>By <a href="/authors/{{ $post->author->username }}">{{ $post->author->name }}</a> in <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a></p>
+            <x-post-grid :posts="$posts" />
 
-            {{-- Published Date --}}
-            <p>
-                {{ date('jS F Y', strtotime($post->published_at)) }}
-            </p>
+        @else
 
-            {{-- Excerpt --}}
-            <div>
-                {!! $post->excerpt !!}
-            </div>
+            <p class="text-center">No posts yet. Please check back later.</p>
 
-        </article>
+        @endif
 
-    @endforeach
+    </main>
 
 </x-layout>
