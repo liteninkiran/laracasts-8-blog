@@ -17,7 +17,16 @@ use App\Models\Category;
 */
 
 Route::get('/', function () {
-    $posts = Post::latest('published_at')->with('category', 'author')->get();
+    $posts = Post::latest('published_at')->with('category', 'author');
+
+    if (request('search')) {
+        $posts
+            ->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('body', 'like', '%' . request('search') . '%');
+    }
+
+    $posts = $posts->get();
+
     $categories = Category::orderBy('name')->get();
     return view('posts', compact('posts', 'categories'));
 })->name('home');
