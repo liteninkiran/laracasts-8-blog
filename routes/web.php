@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Models\Post;
-use App\Models\Category;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,42 +14,7 @@ use App\Models\Category;
 |
 */
 
-Route::get('/', function () {
-    $posts = Post::latest('published_at')->with('category', 'author');
-
-    if (request('search')) {
-        $posts
-            ->where('title', 'like', '%' . request('search') . '%')
-            ->orWhere('body', 'like', '%' . request('search') . '%');
-    }
-
-    $posts = $posts->get();
-
-    $categories = Category::orderBy('name')->get();
-    return view('posts', compact('posts', 'categories'));
-})->name('home');
-
-Route::get('posts/{post:slug}', function (Post $post) {
-    return view('post',  compact('post'));
-});
-
-Route::get('categories/{category:slug}', function (Category $category) {
-    // $posts = $category->posts->load(['category', 'author']);
-    $posts = Post::query()
-        ->latest('published_at')
-        ->with('category', 'author')
-        ->where('category_id', '=', $category->id)
-        ->get();
-    $categories = Category::orderBy('name')->get();
-    return view('posts',  compact('posts', 'categories', 'category'));
-})->name('category');
-
-Route::get('authors/{author:username}', function (User $author) {
-    $posts = Post::query()
-        ->latest('published_at')
-        ->with('category', 'author')
-        ->where('user_id', '=', $author->id)
-        ->get();
-    $categories = Category::orderBy('name')->get();
-    return view('posts',  compact('posts', 'categories'));
-});
+Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('posts/{post:slug}', [PostController::class, 'show']);
+Route::get('categories/{category:slug}', [PostController::class, 'indexCategory'])->name('category');
+Route::get('authors/{author:username}', [PostController::class, 'indexAuthor']);
