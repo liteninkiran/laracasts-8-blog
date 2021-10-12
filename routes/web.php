@@ -34,7 +34,7 @@ Route::get('categories/{category:slug}', function (Category $category) {
         ->where('category_id', '=', $category->id)
         ->get();
     $categories = Category::orderBy('name')->get();
-    return view('posts',  compact('posts', 'categories'));
+    return view('posts',  compact('posts', 'categories', 'category'));
 });
 
 Route::get('authors/{author:username}', function (User $author) {
