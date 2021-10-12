@@ -20,7 +20,7 @@ Route::get('/', function () {
     $posts = Post::latest('published_at')->with('category', 'author')->get();
     $categories = Category::orderBy('name')->get();
     return view('posts', compact('posts', 'categories'));
-});
+})->name('home');
 
 Route::get('posts/{post:slug}', function (Post $post) {
     return view('post',  compact('post'));
@@ -35,7 +35,7 @@ Route::get('categories/{category:slug}', function (Category $category) {
         ->get();
     $categories = Category::orderBy('name')->get();
     return view('posts',  compact('posts', 'categories', 'category'));
-});
+})->name('category');
 
 Route::get('authors/{author:username}', function (User $author) {
     $posts = Post::query()
