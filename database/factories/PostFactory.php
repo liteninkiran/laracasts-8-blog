@@ -27,7 +27,7 @@ class PostFactory extends Factory
         $category = Category::inRandomOrder()->first();
 
         $title = $this->faker->realText(50);
-        $paragraphs = $this->faker->paragraphs(rand(2, 6));
+        $paragraphs = $this->faker->paragraphs(rand(4, 8));
         $body = "<i>{$title}</i>";
         foreach ($paragraphs as $para) {
             $body .= "<p>{$para}</p>";
@@ -36,7 +36,7 @@ class PostFactory extends Factory
         return [
             'slug' => $this->faker->slug,
             'title' => $this->faker->sentence,
-            'excerpt' => '<p>' . $this->faker->sentence . '</p>',
+            'excerpt' => '<p>' . implode('</p><p>', $this->faker->paragraphs(2)) . '</p>',
             'body' => $body,
             'published_at' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'user_id' => $user->id,
