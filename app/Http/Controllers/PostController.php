@@ -82,11 +82,11 @@ class PostController extends Controller
     public function indexAuthor(User $author) {
         $posts = $this->getPosts();
         $posts = $posts->where('user_id', '=', $author->id)->get();
-        return view('posts',  compact('posts'));
+        return view('posts.index',  compact('posts'));
     }
 
     protected function getPosts() {
-        $posts = Post::latest('published_at')->with('category', 'author')->filter(request(['search', 'category']));
+        $posts = Post::latest('published_at')->with('category', 'author')->filter(request(['search', 'category', 'author']));
         return $posts;
     }
 }

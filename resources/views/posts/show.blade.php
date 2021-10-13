@@ -22,8 +22,10 @@
 
                         {{-- Author Name / Username --}}
                         <div class="ml-3 text-left">
-                            <h5 class="font-bold">{{ $post->author->name }}</h5>
-                            <h6>{{ $post->author->username }}</h6>
+                            <a href="?author={{ $post->author->username }}">
+                                <h5 class="font-bold">{{ $post->author->name }}</h5>
+                                <h6>{{ $post->author->username }}</h6>
+                            </a>
                         </div>
 
                     </div>
