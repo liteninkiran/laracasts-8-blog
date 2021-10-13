@@ -16,8 +16,7 @@ class PostController extends Controller
      */
     public function index() {
         $posts = $this->getPosts()->get();
-        $categories = Category::orderBy('name')->get();
-        return view('posts', compact('posts', 'categories'));
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -46,7 +45,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post) {
-        return view('post', compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -80,18 +79,10 @@ class PostController extends Controller
         //
     }
 
-    public function indexCategory(Category $category) {
-        $posts = $this->getPosts();
-        $posts = $posts->where('category_id', '=', $category->id)->get();
-        $categories = Category::orderBy('name')->get();
-        return view('posts',  compact('posts', 'categories', 'category'));
-    }
-
     public function indexAuthor(User $author) {
         $posts = $this->getPosts();
         $posts = $posts->where('user_id', '=', $author->id)->get();
-        $categories = Category::orderBy('name')->get();
-        return view('posts',  compact('posts', 'categories'));
+        return view('posts',  compact('posts'));
     }
 
     protected function getPosts() {

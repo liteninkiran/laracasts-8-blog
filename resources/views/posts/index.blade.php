@@ -1,7 +1,7 @@
 <x-layout>
 
     {{-- Header --}}
-    @include('partials\_posts-header')
+    @include('posts._header')
 
     {{-- Blog Posts --}}
     <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
