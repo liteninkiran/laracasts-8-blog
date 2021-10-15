@@ -17,7 +17,7 @@
 
     {{-- All (only visible if filter applied) --}}
     @if (isset($category))
-        <x-dropdown-item href="/">
+        <x-dropdown-item href="/?{{ http_build_query(request()->except('category', 'page')) }}">
             All
         </x-dropdown-item>
     @endif
@@ -28,7 +28,7 @@
         {{-- Determine whether to add "active" class --}}
         @php $class = isset($category) && $category->is($c) ? 'bg-blue-500 text-white' : ''; @endphp
 
-        <x-dropdown-item href="/?category={{ $c->slug }}" class="{{ $class }}">
+        <x-dropdown-item href="/?category={{ $c->slug }}&{{ http_build_query(request()->except('category', 'page')) }}" class="{{ $class }}">
             {{ ucwords($c->name) }}
         </x-dropdown-item>
 
