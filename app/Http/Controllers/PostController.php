@@ -15,7 +15,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $posts = $this->getPosts()->paginate(env('PAGINATE_LIMIT'));
+        $posts = $this->getPosts()->paginate(env('PAGINATE_LIMIT'))->withQueryString();
         return view('posts.index', compact('posts'));
     }
 
