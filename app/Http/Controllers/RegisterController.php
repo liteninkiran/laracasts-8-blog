@@ -19,7 +19,10 @@ class RegisterController extends Controller
             'password' => ['required', 'max:255', 'min:7'],
         ]);
 
-        User::create($data);
+        $user = User::create($data);
+
+        auth()->login($user);
+
         return redirect('/')->with('success', 'You have successfully registered'); // With -> Flash data to session
     }
 }
