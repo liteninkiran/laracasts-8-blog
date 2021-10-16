@@ -90,7 +90,11 @@ class CommentController extends Controller
      */
     public function destroy(Post $post, Comment $comment)
     {
-        $comment->delete();
-        return redirect("/posts/{$post->slug}#comments-section")->with('success', 'Comment deleted');
+        if (auth()->user()->id === $comment->author->id) {
+            $comment->delete();
+            return redirect("/posts/{$post->slug}#comments-section")->with('success', 'Comment deleted');
+        } else {
+            return redirect("/posts/{$post->slug}#comments-section")->with('failure', 'Could not complete request');
+        }
     }
 }

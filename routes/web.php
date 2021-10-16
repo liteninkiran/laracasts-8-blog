@@ -19,8 +19,8 @@ use App\Http\Controllers\CommentController;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
-Route::post('posts/{post:slug}/comments', [CommentController::class, 'store']);
-Route::delete('posts/{post:slug}/comments/{comment}', [CommentController::class, 'destroy']);
+Route::post('posts/{post:slug}/comments', [CommentController::class, 'store'])->middleware('auth');
+Route::delete('posts/{post:slug}/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth');
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
