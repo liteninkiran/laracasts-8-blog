@@ -68,11 +68,15 @@
 
                 </div>
 
+                <div id="comments-section"></div>
+
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
 
                     @auth
                         <x-panel>
-                            <form method="POST" action="">
+                            <form method="POST" action="/posts/{{ $post->slug }}/comments">
+
+                                @csrf
 
                                 <header class="flex items-center">
                                     <img src="https://i.pravatar.cc/60?u={{ auth()->id() }}" alt="" width="60" height="60" class="rounded-xl">
@@ -93,7 +97,7 @@
                         </x-panel>
                     @endauth
 
-                    @foreach ($post->comments as $comment)
+                    @foreach ($post->comments->sortByDesc('created_at') as $comment)
                         <x-post-comment :comment="$comment" />
                     @endforeach
                 </section>

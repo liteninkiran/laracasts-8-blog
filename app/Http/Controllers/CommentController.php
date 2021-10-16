@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Models\Comment;
+use App\Models\Post;
 
 class CommentController extends Controller
 {
@@ -33,9 +34,18 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request, Post $post) {
+        $request->validate([
+            'body' => 'required'
+        ]);
+
+        $post->comments()->create([
+            'user_id' => $request->user()->id,
+            'post_id' => $post->id,
+            'body' => $request->body,
+        ]);
+
+        return redirect("/posts/{$post->slug}#comments-section")->with('success', 'Comment added');
     }
 
     /**
@@ -78,8 +88,9 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Post $post, Comment $comment)
     {
-        //
+        $comment->delete();
+        return redirect("/posts/{$post->slug}#comments-section")->with('success', 'Comment deleted');
     }
 }

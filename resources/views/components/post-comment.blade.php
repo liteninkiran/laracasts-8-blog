@@ -16,5 +16,14 @@
 
             {!! $comment->body !!}
         </div>
-    </article>
+        <div>
+            <form method="POST" action="/posts/{{ $comment->post->slug }}/comments/{{ $comment->id }}">
+                @csrf
+                @method('delete')
+                <button type="submit" class="bg-blue-500 text-white rounded py-2 px-4 hover:bg-blue-700">
+                    Delete
+                </button>
+            </form>
+        </div>
+</article>
 </x-panel>
