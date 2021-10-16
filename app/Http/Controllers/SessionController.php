@@ -17,14 +17,14 @@ class SessionController extends Controller
             'password' => ['required'],
         ]);
 
-        if (auth()->attempt($data)) {
-            session()->regenerate();
-            return redirect('/')->with('success', 'Welcome Back');
+        if (!auth()->attempt($data)) {
+            throw ValidationException::withMessages([
+                'email' => 'Invalid credentials'
+            ]);
         }
 
-        throw ValidationException::withMessages([
-            'email' => 'Invalid credentials'
-        ]);
+        session()->regenerate();
+        return redirect('/')->with('success', 'Welcome Back');
     }
 
     public function destroy() {
