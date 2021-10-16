@@ -13,7 +13,7 @@
                 {{-- Name --}}
                 <div class="mb-6">
                     <label for="name" class="block mb-2 uppercase font-bold text-xs text-gray-700">Name</label>
-                    <input type="text" name="name" id="name" value="{{ old('name') }}" class="border border-gray-400 p-2 w-full">
+                    <input type="text" name="name" id="name" value="{{ old('name') }}" class="border border-gray-400 p-2 w-full" required>
                     @error('name')
                         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
@@ -22,7 +22,7 @@
                 {{-- Username --}}
                 <div class="mb-6">
                     <label for="username" class="block mb-2 uppercase font-bold text-xs text-gray-700">Username</label>
-                    <input type="text" name="username" id="username" value="{{ old('username') }}" class="border border-gray-400 p-2 w-full">
+                    <input type="text" name="username" id="username" value="{{ old('username') }}" class="border border-gray-400 p-2 w-full" required>
                     @error('username')
                         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
@@ -31,7 +31,7 @@
                 {{-- Email --}}
                 <div class="mb-6">
                     <label for="email" class="block mb-2 uppercase font-bold text-xs text-gray-700">Email</label>
-                    <input type="text" name="email" id="email" value="{{ old('email') }}" class="border border-gray-400 p-2 w-full">
+                    <input type="email" name="email" id="email" value="{{ old('email') }}" class="border border-gray-400 p-2 w-full" required>
                     @error('email')
                         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
@@ -40,7 +40,7 @@
                 {{-- Password --}}
                 <div class="mb-6">
                     <label for="password" class="block mb-2 uppercase font-bold text-xs text-gray-700">Password</label>
-                    <input type="password" name="password" id="password" class="border border-gray-400 p-2 w-full">
+                    <input type="password" name="password" id="password" class="border border-gray-400 p-2 w-full" required>
                     @error('password')
                         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
