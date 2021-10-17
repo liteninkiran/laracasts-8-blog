@@ -11,67 +11,43 @@
                 @csrf
 
                 {{-- Title --}}
-                <div class="mb-6">
-                    <label for="title" class="block mb-2 uppercase font-bold text-xs text-gray-700">Title</label>
-                    <input type="text" name="title" id="title" value="{{ old('title') }}" class="border border-gray-400 p-2 w-full" required>
-                    @error('title')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+                <x-form.input name="title" />
 
                 {{-- Slug --}}
-                <div class="mb-6">
-                    <label for="slug" class="block mb-2 uppercase font-bold text-xs text-gray-700">Slug</label>
-                    <input type="text" name="slug" id="slug" value="{{ old('slug') }}" class="border border-gray-400 p-2 w-full" required>
-                    @error('slug')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+                <x-form.input name="slug" />
 
                 {{-- Thumbnail --}}
-                <div class="mb-6">
-                    <label for="thumbnail" class="block mb-2 uppercase font-bold text-xs text-gray-700">Thumbnail</label>
-                    <input type="file" name="thumbnail" id="thumbnail" value="{{ old('thumbnail') }}" class="border border-gray-400 p-2 w-full" required>
-                    @error('thumbnail')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+                <x-form.input name="thumbnail" type="file" required='' />
 
                 {{-- Excerpt --}}
-                <div class="mb-6">
-                    <label for="excerpt" class="block mb-2 uppercase font-bold text-xs text-gray-700">Excerpt</label>
-                    <textarea name="excerpt" id="excerpt" rows="1" required class="border border-gray-400 p-2 w-full">{{ old('excerpt') }}</textarea>
-                    @error('excerpt')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+                <x-form.textarea name="excerpt" rows="1" />
 
                 {{-- Body --}}
-                <div class="mb-6">
-                    <label for="body" class="block mb-2 uppercase font-bold text-xs text-gray-700">Body</label>
-                    <textarea name="body" id="body" rows="10" required class="border border-gray-400 p-2 w-full">{{ old('body') }}</textarea>
-                    @error('body')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+                <x-form.textarea name="body" rows="10" />
 
                 {{-- Category --}}
-                <div class="mb-6">
-                    <label for="category_id" class="block mb-2 uppercase font-bold text-xs text-gray-700">Category</label>
+                <x-form.field>
+
+                    {{-- Label --}}
+                    <x-form.label name="category" />
+
+                    {{-- Drop Down Menu --}}
                     <select name="category_id" id="category_id">
+                        <option value="" disabled selected>Please select</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ old('category_id') === $category->id ? 'selected' : '' }}>{{ ucwords($category->name) }}</option>
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ ucwords($category->name) }}</option>
                         @endforeach
                     </select>
-                    @error('category_id')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+
+                    {{-- Error Messages --}}
+                    <x-form.error name="category_id" />
+
+                </x-form.field>
 
                 {{-- Submit Button --}}
-                <x-submit-button>
+                <x-form.button>
                     Publish
-                </x-submit-button>
+                </x-form.button>
 
             </form>
 
