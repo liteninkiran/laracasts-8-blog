@@ -1,4 +1,4 @@
-@props(['name', 'rows' => '1', 'required' => 'required'])
+@props(['name', 'rows' => '1'])
 
 <x-form.field>
 
@@ -9,8 +9,8 @@
     <textarea name      = "{{ $name }}"
               id        = "{{ $name }}"
               rows      = "{{ $rows }}"
-              class     = "border border-gray-400 p-2 w-full"
-              {{ $required }}
+              class     = "border border-gray-200 p-2 w-full rounded"
+              {{ $attributes }}
     >{{ old($name) }}</textarea>
 
     {{-- Error Messages --}}

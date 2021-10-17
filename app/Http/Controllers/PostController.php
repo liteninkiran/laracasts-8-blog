@@ -26,8 +26,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $categories = Category::orderBy('name')->get();
-        return view('posts.create', compact('categories'));
+        return view('posts.create');
     }
 
     /**

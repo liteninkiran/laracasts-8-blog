@@ -30,24 +30,35 @@
             <div class="mt-8 md:mt-0 flex items-center">
 
                 {{-- User's Name --}}
-                @auth<span class="text-xs font-bold uppercase">{{ auth()->user()->name }}</span>@endauth
+                @auth
+                    <x-dropdown>
+
+                        {{-- Label --}}
+                        <x-slot name="trigger">
+                            <button class="text-xs font-bold uppercase">
+                                {{ auth()->user()->name }}
+                            </button>
+                        </x-slot>
+
+                        {{-- Drop-Down Items --}}
+                        <x-dropdown-item href="/admin/dashboard">Dashboard</x-dropdown-item>
+                        <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">New Post</x-dropdown-item>
+                        <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">Log Out</x-dropdown-item>
+
+                        {{-- Logout Button --}}
+                        <form action="/logout" method="POST" id="logout-form" class=hidden>
+                            @csrf
+                        </form>
+
+                    </x-dropdown>
+
+                @endauth
 
                 {{-- Subscribe --}}
                 <a href="#newsletter" class="bg-green-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">Subscribe</a>
 
-                @auth
-
-                    {{-- Logout Button --}}
-                    <form action="/logout" method="POST">
-                        @csrf
-                        <div class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
-                            <button type="submit" class="text-xs font-semibold text-white uppercase">
-                                Log Out
-                            </button>
-                        </div>
-                    </form>
-
-                @else
+                {{-- Login / Register --}}
+                @guest
 
                     {{-- Register --}}
                     <a href="/register" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">

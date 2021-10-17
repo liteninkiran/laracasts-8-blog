@@ -12,7 +12,7 @@
             </header>
 
             {{-- Body --}}
-            <x-form.textarea name="body" rows="5" required="required" />
+            <x-form.textarea name="body" rows="5" required />
 
             {{-- Submit --}}
             <div class="flex justify-end pt-3">

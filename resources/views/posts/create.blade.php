@@ -1,58 +1,52 @@
 <x-layout>
 
-    <section class="py-8 max-w-lg mx-auto">
+    <x-setting heading="Publish New Post">
 
-        <h1 class="text-lg font-bold mb-4">Publish New Post</h1>
+        <form action="/admin/posts" method="POST" enctype="multipart/form-data">
 
-        <x-panel>
+            @csrf
 
-            <form action="/admin/posts" method="POST" enctype="multipart/form-data">
+            {{-- Title --}}
+            <x-form.input name="title" required />
 
-                @csrf
+            {{-- Slug --}}
+            <x-form.input name="slug" required />
 
-                {{-- Title --}}
-                <x-form.input name="title" />
+            {{-- Thumbnail --}}
+            <x-form.input name="thumbnail" type="file" />
 
-                {{-- Slug --}}
-                <x-form.input name="slug" />
+            {{-- Excerpt --}}
+            <x-form.textarea name="excerpt" rows="1" required />
 
-                {{-- Thumbnail --}}
-                <x-form.input name="thumbnail" type="file" required='' />
+            {{-- Body --}}
+            <x-form.textarea name="body" rows="10" required />
 
-                {{-- Excerpt --}}
-                <x-form.textarea name="excerpt" rows="1" />
+            {{-- Category --}}
+            <x-form.field>
 
-                {{-- Body --}}
-                <x-form.textarea name="body" rows="10" />
+                {{-- Label --}}
+                <x-form.label name="category" />
 
-                {{-- Category --}}
-                <x-form.field>
+                {{-- Drop Down Menu --}}
+                <select name="category_id" id="category_id">
+                    <option value="" disabled selected>Please select</option>
+                    @foreach (\App\Models\Category::orderBy('name')->get() as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ ucwords($category->name) }}</option>
+                    @endforeach
+                </select>
 
-                    {{-- Label --}}
-                    <x-form.label name="category" />
+                {{-- Error Messages --}}
+                <x-form.error name="category_id" />
 
-                    {{-- Drop Down Menu --}}
-                    <select name="category_id" id="category_id">
-                        <option value="" disabled selected>Please select</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ ucwords($category->name) }}</option>
-                        @endforeach
-                    </select>
+            </x-form.field>
 
-                    {{-- Error Messages --}}
-                    <x-form.error name="category_id" />
+            {{-- Submit Button --}}
+            <x-form.button>
+                Publish
+            </x-form.button>
 
-                </x-form.field>
+        </form>
 
-                {{-- Submit Button --}}
-                <x-form.button>
-                    Publish
-                </x-form.button>
-
-            </form>
-
-        </x-panel>
-
-    </section>
+    </x-setting>
 
 </x-layout>
