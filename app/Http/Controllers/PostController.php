@@ -39,12 +39,17 @@ class PostController extends Controller
     public function store(Request $request) {
         $data = $request->validate([
             'title' => ['required'],
+            'thumbnail' => ['image'],
             'slug' => ['required', Rule::unique('posts', 'slug')],
             'excerpt' => ['required'],
             'body' => ['required'],
             'category_id' => ['required', Rule::exists('categories', 'id')],
         ]);
-        $path = $request->file('thumbnail')->store('thumbnails');
+
+        if ($request->has('thumbnail')) {
+            $path = $request->file('thumbnail')->store('thumbnails');
+            $data['thumbnail'] = $path;
+        }
 
         $data['user_id'] = auth()->id();
 
