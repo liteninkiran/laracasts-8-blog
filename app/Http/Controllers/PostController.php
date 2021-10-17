@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Category;
@@ -25,7 +26,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('posts.create');
+        $categories = Category::orderBy('name')->get();
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -35,7 +37,19 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $data = $request->validate([
+            'title' => ['required'],
+            'slug' => ['required', Rule::unique('posts', 'slug')],
+            'excerpt' => ['required'],
+            'body' => ['required'],
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+        ]);
+
+        $data['user_id'] = auth()->id();
+
+        Post::create($data);
+
+        return redirect('/');
     }
 
     /**

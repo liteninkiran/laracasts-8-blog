@@ -25,9 +25,11 @@
                     </h1>
 
                     {{-- Published Date --}}
-                    <span class="mt-2 block text-gray-400 text-xs">
-                        Published <time>{{ $post->published_at->diffForHumans() }}</time>
-                    </span>
+                    @if ($post->published_at)
+                        <span class="mt-2 block text-gray-400 text-xs">
+                            Published <time>{{ $post->published_at->diffForHumans() }}</time>
+                        </span>
+                    @endif
 
                 </div>
 
