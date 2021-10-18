@@ -11,7 +11,7 @@
               rows      = "{{ $rows }}"
               class     = "border border-gray-200 p-2 w-full rounded"
               {{ $attributes }}
-    >{{ old($name) }}</textarea>
+    >{{ $slot ?? old($name) }}</textarea>
 
     {{-- Error Messages --}}
     <x-form.error name="{{ $name }}" />

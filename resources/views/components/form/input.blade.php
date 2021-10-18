@@ -9,9 +9,8 @@
     <input name     = "{{ $name }}"
            id       = "{{ $name }}"
            type     = "{{ $type }}"
-           value    = "{{ old($name) }}"
            class    = "border border-gray-200 p-2 w-full rounded"
-           {{ $attributes }}
+           {{ $attributes(['value' => old($name)]) }}
     />
 
     {{-- Error Messages --}}
